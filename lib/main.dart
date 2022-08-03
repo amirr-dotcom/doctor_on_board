@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:doctor_on_boarding/view/doctor_details.dart';
+import 'package:doctor_on_boarding/view/login.dart';
 
 void main() async{
   await ScreenUtil.ensureScreenSize();
@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const DoctorDetails(),
+      home: const LoginView(),
     );
   }
 }

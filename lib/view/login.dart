@@ -1,27 +1,30 @@
 
 import 'package:doctor_on_boarding/common_widget/primary_button.dart';
 import 'package:doctor_on_boarding/common_widget/primary_text_field.dart';
+import 'package:doctor_on_boarding/view/create_account_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:doctor_on_boarding/app_color.dart';
 
+import 'opt_View.dart';
 
-class CreateAccountView extends StatefulWidget {
-  const CreateAccountView({Key? key}) : super(key: key);
+class LoginView extends StatefulWidget {
+  const LoginView({Key? key}) : super(key: key);
 
   @override
-  State<CreateAccountView> createState() => _CreateAccountViewState();
+  State<LoginView> createState() => _LoginViewState();
 }
 
-class _CreateAccountViewState extends State<CreateAccountView> {
+class _LoginViewState extends State<LoginView> {
+
+
 
   final _formKey = GlobalKey<FormState>();
-  final controller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-
-
     ScreenUtil.init(context,);
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColor.primaryColor,
@@ -32,18 +35,9 @@ class _CreateAccountViewState extends State<CreateAccountView> {
             child: Column(
               children: [
                 Padding(
-                  padding: EdgeInsets.fromLTRB(25.r,20.r,31.r,31.r),
+                  padding: EdgeInsets.fromLTRB(31.r,102.r,31.r,31.r),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      InkWell(
-                          onTap: (){
-                            Navigator.pop(context);
-                          },
-                          child: Icon(Icons.arrow_back,color: Colors.white,size: 34.h,)),
-                      SizedBox(
-                        height: 19.h,
-                      ),
                       Row(
                         children: [
                           Expanded(
@@ -55,6 +49,7 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                                     height: 43.w,
                                     child: Image.asset("assets/weather.png")),
                                 SizedBox(height: 10.h,),
+
                                 Text('13°C',
                                   style: TextStyle(
                                       fontSize: 36.sp,
@@ -85,17 +80,17 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
 
-                              Text('New Here?',
+                              Text('Hey,',
                                 textAlign: TextAlign.end,
                                 style: TextStyle(
                                     fontSize: 36.sp,
                                     fontWeight: FontWeight.bold,
                                     color:Colors.white
                                 ),),
-                              Text('Create Account',
+                              Text('Login Now',
                                 textAlign: TextAlign.end,
                                 style: TextStyle(
-                                    fontSize: 25.sp,
+                                    fontSize: 28.sp,
                                     fontWeight: FontWeight.bold,
                                     color:Colors.white
                                 ),)
@@ -108,7 +103,7 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                       SizedBox(height: 20.h,),
                       Container(
                         alignment: Alignment.topLeft,
-                        child: Text('Sign up With',
+                        child: Text('Sign in With',
                           textAlign: TextAlign.start,
                           style: TextStyle(
                               fontSize: 14.sp,
@@ -148,14 +143,10 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                       SizedBox(height: 60.h,),
 
                       PrimaryTextField(
+
                         prefixIcon: Image.asset("assets/user.png"),
-                        hintText: "User Name",
-                        controller: controller,
-                      ),
-                      SizedBox(height: 25.h,),
-                         PrimaryTextField(
-                        prefixIcon: const Icon(Icons.mail_rounded,color: Colors.white,),
-                        hintText: "Email",
+                        hintText: "User Name ( Email )",
+
                           validator: (value){
                             if(value!.isEmpty){
                               return  'Wrong Email';
@@ -168,11 +159,14 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                       SizedBox(height: 25.h,),
 
                       PrimaryTextField(
+                        maxLength: 10,
                         prefixIcon: Image.asset("assets/phone.png"),
-                        hintText: "Number",
-
+                        hintText: "User Name ( Mobile )",
                           validator: (value){
                             if(value!.isEmpty){
+                              return  'Wrong Phone Number';
+                            }
+                            else    if(value.length<10){
                               return  'Wrong Phone Number';
                             }
                             else{
@@ -182,52 +176,50 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                       ),
 
                       SizedBox(height: 25.h,),
-                      const PrimaryTextField(
-                        prefixIcon:Icon(Icons.location_city,color: Colors.white,),
-                        hintText: "City",
-                      ),
-
-                      SizedBox(height: 25.h,),
-                      const PrimaryTextField(
-                        prefixIcon: Icon(Icons.add_location_alt,color: Colors.white,),
-                        hintText: "State",
-                      ),
-
-                      SizedBox(height: 25.h,),
 
                       PrimaryTextField(
                           obscure: true,
                         prefixIcon: Image.asset("assets/password.png"),
                         hintText: "Password",
-
                           validator: (value){
                             if(value!.isEmpty){
                               return  'Wrong Password';
                             }
-                            else{
-                              return null;
-                            }
-                          }
-                      ),SizedBox(height: 25.h,),
 
-                      PrimaryTextField(
-                        obscure: true,
-                        prefixIcon: Image.asset("assets/password.png"),
-                        hintText: "Re-Enter Password",
-                          validator: (value){
-                            if(value!.isEmpty){
-                              return  'Wrong Password';
-                            }
                             else{
                               return null;
                             }
                           }
                       ),
+                      SizedBox(height: 15.h,),
+                      InkWell(
+                        onTap: (){
+
+                        },
+                        child: Container(
+                          alignment: Alignment.topRight,
+                          child: InkWell(
+                            onTap: (){
+
+
+                            },
+                            child: Text("Forgot Password?",style:
+                            TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16.sp
+                            ),),
+                          ),
+                        ),
+                      ),
                       SizedBox(height: 50.h,),
                       PrimaryButton(
                         onPressed:( ){
                           if(_formKey.currentState!.validate()){
-
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const OtpView()),
+                            );
                           }
                         },
                         title: "SIGN IN",
@@ -235,26 +227,28 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                       SizedBox(height: 20.h,),
                       Wrap(
                         children: [
-                          Text("Already Have an Account? ",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16.sp
-                            ),),
+                          Text("New User? ",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16.sp
+                          ),),
 
                           InkWell(
                             onTap: (){
-                              Navigator.pop(context);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) =>  CreateAccountView()),
+                              );
                             },
-                            child: Text("Sign IN",
+                            child: Text("Create Account",
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 16.sp,
-                                  fontWeight: FontWeight.bold
+                                fontWeight: FontWeight.bold
                               ),),
                           )
                         ],
                       )
-
                     ],
                   ),
                 ),
@@ -266,3 +260,5 @@ class _CreateAccountViewState extends State<CreateAccountView> {
     );
   }
 }
+
+

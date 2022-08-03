@@ -3,6 +3,7 @@
 
 import 'package:doctor_on_boarding/app_color.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 
 
@@ -16,7 +17,6 @@ class PrimaryButton extends StatelessWidget {
   final bool expanded;
   final double? width;
   final double? elevation;
-  final Widget? icon;
   final Color? titleColor;
 
   const PrimaryButton({Key? key,
@@ -28,45 +28,45 @@ class PrimaryButton extends StatelessWidget {
     this.expanded=true,
     this.width,
     this.elevation,
-    this.icon,
     this.titleColor,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      customBorder:  RoundedRectangleBorder(
+          borderRadius:  BorderRadius.all(Radius.circular(80.0.r))
+      ),
       onTap: (){
         onPressed();
       },
-      child: SizedBox(
-        width: width?? (expanded?double.infinity:width),
-        child: Container(
+      child: Padding(
+        padding: const EdgeInsets.all(2.0),
+        child: SizedBox(
+          width: width?? (expanded?double.infinity:width),
+          child: Container(
+            height: 50.h,
             decoration:  BoxDecoration(
-                gradient: LinearGradient(
-                  colors: <Color>[
-                    AppColor.primaryColor,
-                    AppColor.primaryColor,
-                    AppColor.primaryColor,
+                borderRadius: BorderRadius.all(Radius.circular(35.r)),
+                gradient: const LinearGradient(
+                  begin: Alignment.topRight,
+                  end: Alignment.bottomLeft,
+                  colors: [
+                    Color(0xFF131040),
+
+                    Color(0xFF332C6C),
                   ],
-                ),
-                borderRadius: BorderRadius.all(Radius.circular(80.0))
+                )
             ),
-            padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-            child: Wrap(
-          crossAxisAlignment: WrapCrossAlignment.center,
-          alignment: WrapAlignment.center,
-          children: [
-            icon==null?Container():Padding(
-              padding: const EdgeInsets.fromLTRB(0,0,5,0,),
-              child: icon,
+            child: Center(
+              child: Text(title.toString(),style: TextStyle(
+                  fontSize: 24.sp,
+                  fontWeight:FontWeight.w700,
+                  color:Colors.white
+              ) ,),
             ),
-            Text(title,
-              style: TextStyle(
-                  fontSize: 16,
-                  color: titleColor
-              ),),
-          ],
-        )),
+          ),
+        ),
       ),
     );
   }

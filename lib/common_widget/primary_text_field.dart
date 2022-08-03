@@ -37,6 +37,8 @@ class PrimaryTextField extends StatelessWidget {
   final BoxConstraints? suffixIconConstraints;
   final BoxConstraints? prefixIconConstraints;
   final List<TextInputFormatter>? inputFormatters;
+  final bool? isValidated;
+  final bool? obscure;
 
 
   const PrimaryTextField({Key? key, this.hintText, this.controller,
@@ -59,12 +61,15 @@ class PrimaryTextField extends StatelessWidget {
     this.prefixIconConstraints,
     this.style,
     this.inputFormatters,
+    this.isValidated,
+    this.obscure,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return
       TextFormField(
+        obscureText: obscure??false,
           inputFormatters: inputFormatters,
           cursorColor: Colors.black,
           enabled: enabled??true,
@@ -80,7 +85,16 @@ class PrimaryTextField extends StatelessWidget {
             onChanged!(val);
           },
 
-          // style:  MyTextTheme().mediumBCN,
+          style:TextStyle(
+              color:hintTextColor?? (
+                  (isValidated??true)?
+
+                      Colors.orange: Colors.red
+              ),
+              fontSize: 16.sp,
+
+          ),
+
           decoration: decoration??InputDecoration(
             floatingLabelBehavior: FloatingLabelBehavior.always,
             filled: true,
@@ -95,7 +109,12 @@ class PrimaryTextField extends StatelessWidget {
             hintStyle:TextStyle(
               color:hintTextColor?? Colors.white,
               fontSize: 16.sp,
-              fontWeight: FontWeight.w600
+            ),
+
+            errorStyle:TextStyle(
+                color:hintTextColor?? Colors.red,
+                fontSize: 12.sp,
+                fontWeight: FontWeight.w600
             ),
             labelText: labelText,
             // labelStyle: MyTextTheme.smallPCB,
@@ -131,9 +150,11 @@ class PrimaryTextField extends StatelessWidget {
             disabledBorder:  border??  const UnderlineInputBorder(
               borderSide: BorderSide(color: Colors.white),
             ),
-            focusedBorder:  border??  const UnderlineInputBorder(
-              borderSide: BorderSide(color: Colors.white),
+            focusedBorder:  border??   UnderlineInputBorder(
+              borderSide: BorderSide(color: AppColor.orange),
             ),
+
+
 
 
           ),
